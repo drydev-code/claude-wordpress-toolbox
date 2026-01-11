@@ -1,0 +1,12 @@
+{
+  "name": "wordpress-tools",
+  "version": "1.0.0",
+  "description": "WordPress content management, SEO optimization, and Gutenberg editing tools",
+  "author": {
+    "name": "drydev-code"
+  },
+  "repository": "https://github.com/drydev-code/claude-wordpress-skills",
+  "license": "MIT",
+  "keywords": ["wordpress", "gutenberg", "seo", "rank-math", "yoast", "content-management"],
+  "skills": "./skills/"
+}

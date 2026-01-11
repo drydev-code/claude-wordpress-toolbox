@@ -1,0 +1,26 @@
+{
+  "name": "claude-wordpress-skills",
+  "owner": {
+    "name": "drydev-code"
+  },
+  "metadata": {
+    "description": "WordPress content management, SEO optimization, and Gutenberg editing skills for Claude Code",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "wordpress-tools",
+      "source": "./plugins/wordpress-tools",
+      "description": "WordPress export/import, Gutenberg editing, plugin research, and SEO optimization",
+      "version": "1.0.0",
+      "author": {
+        "name": "drydev-code"
+      },
+      "repository": "https://github.com/drydev-code/claude-wordpress-skills",
+      "license": "MIT",
+      "keywords": ["wordpress", "gutenberg", "seo", "rank-math", "yoast", "content-management"],
+      "category": "productivity"
+    }
+  ]
+}

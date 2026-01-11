@@ -1,23 +1,19 @@
-# Claude Code WordPress Skills
+# Claude WordPress Skills
 
-A collection of Claude Code skills for WordPress content management, SEO optimization, and Gutenberg editing.
+A Claude Code skills marketplace for WordPress content management, SEO optimization, and Gutenberg editing.
 
 ## Installation
 
-Add this skill package to your Claude Code project:
+Add this marketplace to Claude Code:
 
 ```bash
-claude mcp add-skill https://github.com/drydev-code/claude-wordpress-skills
+/plugin marketplace add drydev-code/claude-wordpress-skills
 ```
 
-Or add to your `.claude/settings.json`:
+Then install the plugin:
 
-```json
-{
-  "skillSources": [
-    "https://github.com/drydev-code/claude-wordpress-skills"
-  ]
-}
+```bash
+/plugin install wordpress-tools
 ```
 
 ## Available Skills
@@ -76,12 +72,7 @@ For full functionality, your WordPress site needs:
 
 1. **REST API enabled** (default in WordPress)
 2. **Application Password** configured for authentication
-3. **MU-Plugin** (optional) for full meta access:
-
-```php
-// wp-content/mu-plugins/expose-all-meta.php
-// See export/_wordpress-plugin/expose-all-meta.php
-```
+3. **MU-Plugin** (optional) for full meta access
 
 ## Configuration
 
@@ -122,16 +113,29 @@ Optimize the SEO for export/pages/home/
 Add a hero section to export/pages/home/body.html
 ```
 
-## Bundled Scripts
+## Repository Structure
 
-This package includes complete Node.js scripts:
-
-- `wp-export.js` - Export script (900+ lines)
-- `wp-import.js` - Import script (660+ lines)
-- `config.js` - Configuration loader
-- `lib/api-client.js` - WordPress REST API client
-- `lib/file-utils.js` - File operations
-- `lib/media-handler.js` - Media handling
+```
+├── .claude-plugin/
+│   └── marketplace.json          # Marketplace manifest
+├── plugins/
+│   └── wordpress-tools/
+│       ├── .claude-plugin/
+│       │   └── plugin.json       # Plugin manifest
+│       ├── skills/
+│       │   ├── wp-export/SKILL.md
+│       │   ├── wp-import/SKILL.md
+│       │   ├── gutenberg-editor/SKILL.md
+│       │   ├── wp-plugin-research/SKILL.md
+│       │   └── seo-expert/SKILL.md
+│       └── scripts/
+│           ├── wp-export.js
+│           ├── wp-import.js
+│           ├── config.js
+│           └── lib/
+├── README.md
+└── LICENSE
+```
 
 ## License
 
