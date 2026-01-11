@@ -31,7 +31,10 @@ The `jq` command is NOT available on Windows by default. Instead:
 - Or parse JSON output manually
 
 ### UTF-8 Encoding for JSON Payloads
-When sending JSON data with special characters (German umlauts, accents, etc.), you MUST:
+
+**CRITICAL**: German umlauts (ä, ö, ü, ß) and other special characters (é, è, ñ, etc.) MUST be handled with proper UTF-8 encoding. Direct use of special characters in curl command strings will cause "Malformed UTF-8" errors on Windows.
+
+When sending JSON data with special characters, you MUST:
 1. Write JSON to a temp file with proper UTF-8 encoding
 2. Use `--data-binary @filename` instead of `-d 'json string'`
 
@@ -43,7 +46,9 @@ curl -d '{"title":"Über mich"}' ...
 **CORRECT - use temp file approach:**
 ```bash
 # Write JSON to temp file with UTF-8 encoding
-echo '{"title":"Über mich"}' > /tmp/payload.json
+cat > /tmp/payload.json << 'EOF'
+{"title":"Über mich","content":"Text mit Umlauten: äöüß"}
+EOF
 curl --data-binary @/tmp/payload.json -H "Content-Type: application/json; charset=utf-8" ...
 ```
 
@@ -59,6 +64,33 @@ Invoke-RestMethod -Uri "$env:WP_REMOTE_URL/wp-json/wp/v2/pages/123" `
     -Headers @{Authorization = "Basic $([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("$env:WP_REMOTE_USER`:$env:WP_REMOTE_APP_PASSWORD")))"} `
     -ContentType "application/json; charset=utf-8" `
     -Body ([System.Text.Encoding]::UTF8.GetBytes($body))
+```
+
+### Character Encoding Best Practices
+
+1. **Always use UTF-8** - All WordPress content uses UTF-8 encoding
+2. **Never escape characters** - Write `Über` not `\u00dcber` or `&Uuml;ber`
+3. **Preserve original text** - When reading from WordPress, keep special characters as-is
+4. **Use binary transfer** - Always use `--data-binary` not `-d` with curl
+5. **Set charset header** - Always include `charset=utf-8` in Content-Type
+
+### Common German Character Examples
+| Character | Name | Unicode |
+|-----------|------|---------|
+| ä | a-umlaut | U+00E4 |
+| ö | o-umlaut | U+00F6 |
+| ü | u-umlaut | U+00FC |
+| Ä | A-umlaut | U+00C4 |
+| Ö | O-umlaut | U+00D6 |
+| Ü | U-umlaut | U+00DC |
+| ß | eszett | U+00DF |
+
+### Verifying Encoding
+After making REST API calls, verify characters are correct:
+```powershell
+# Fetch page and check title
+$page = Invoke-WPRestAPI -Endpoint "wp/v2/pages/123"
+$page.title.rendered  # Should show: Über uns (not: Ã¼ber uns)
 ```
 
 ### Reusable PowerShell Helper Function

@@ -115,3 +115,41 @@ Scripts are located in `../../scripts/`:
 - `lib/file-utils.js` - File operations
 - `lib/media-handler.js` - Media upload with URL mapping
 - `config.js` - Configuration loading
+
+---
+
+## Character Encoding (UTF-8)
+
+**CRITICAL**: The import scripts handle UTF-8 encoding correctly. All content with special characters (German umlauts: ä, ö, ü, ß, accented characters: é, è, ñ, etc.) will be imported correctly.
+
+### Requirements
+- Source files must be UTF-8 encoded
+- Target WordPress must use UTF-8 charset (default for modern WordPress)
+- REST API payloads are sent with `Content-Type: application/json; charset=utf-8`
+
+### What Gets Imported
+- `body.html` - Full UTF-8 Gutenberg content
+- `metadata.json` - Titles, excerpts with special characters
+- `*.json` plugin files - SEO meta with special characters
+
+### Pre-Import Check
+Verify your export files have correct encoding:
+```bash
+# Check for German umlauts
+grep -r "[äöüÄÖÜß]" export/
+
+# Verify file encoding (should show UTF-8)
+file export/pages/*/body.html
+```
+
+### Common Issues
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| "Malformed UTF-8" error | Curl encoding issue | Script uses proper encoding |
+| Characters appear as `?` on site | WordPress charset wrong | Check wp-config.php DB_CHARSET |
+| JSON parse errors | Corrupted export files | Re-export from source |
+
+### When Editing Files Before Import
+- Use the Edit tool which preserves UTF-8 encoding
+- Never use sed or awk that might corrupt encoding
+- Validate JSON files after manual edits

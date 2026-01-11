@@ -112,3 +112,33 @@ Scripts are located in `../../scripts/`:
 - `lib/file-utils.js` - File operations
 - `lib/media-handler.js` - Media download/upload
 - `config.js` - Configuration loading
+
+---
+
+## Character Encoding (UTF-8)
+
+**CRITICAL**: The export scripts preserve UTF-8 encoding. All exported content containing special characters (German umlauts: ä, ö, ü, ß, accented characters: é, è, ñ, etc.) will be correctly encoded.
+
+### What Gets Exported
+- `body.html` - Full UTF-8 content with all special characters preserved
+- `metadata.json` - Titles, excerpts with UTF-8 characters
+- `*.json` plugin files - SEO meta, ACF fields with UTF-8 content
+
+### Verification
+After export, verify special characters are preserved:
+```bash
+# Check for German umlauts in exported content
+grep -r "[äöüÄÖÜß]" export/
+```
+
+### Common Issues
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Characters appear as `?` or `�` | Source WordPress has encoding issues | Check WordPress database charset |
+| JSON parse errors | Invalid UTF-8 in source | Clean source data before export |
+| Filenames with umlauts | Windows path issues | Umlauts in media filenames are normalized |
+
+### When Editing Exported Files
+- Use the Edit tool which preserves UTF-8 encoding
+- Open files in editors with UTF-8 support
+- Never use tools that might corrupt encoding (sed with wrong locale, etc.)

@@ -215,3 +215,41 @@ When researching a new plugin, document:
 - `WebFetch`: Read documentation pages
 - `Grep`: Search existing codebase for plugin patterns
 - `Read`: Examine exported plugin data files
+
+---
+
+## Character Encoding (UTF-8)
+
+**CRITICAL**: When documenting plugin data structures and creating implementation plans, always account for UTF-8 special characters (German umlauts: ä, ö, ü, ß, accented characters: é, è, ñ, etc.).
+
+### Research Considerations
+1. **Plugin REST API encoding** - Verify plugin endpoints accept UTF-8 content
+2. **Database storage** - Check if plugin stores data as UTF-8 or uses encoding
+3. **Export/Import format** - Document any character encoding requirements
+
+### Documentation Template Addition
+When documenting a plugin, include:
+```markdown
+### Character Encoding
+- Storage format: UTF-8 / Serialized PHP / etc.
+- REST API encoding: UTF-8 supported / Requires escaping / etc.
+- Known issues: [Any encoding-related bugs or limitations]
+```
+
+### Common Plugin Encoding Patterns
+| Plugin Type | Typical Encoding | Notes |
+|-------------|------------------|-------|
+| SEO plugins | UTF-8 | Meta titles/descriptions support full Unicode |
+| Form plugins | UTF-8 | Form labels and messages support Unicode |
+| Page builders | UTF-8 JSON | Nested content in JSON format |
+| ACF | UTF-8 | Field labels and values support Unicode |
+
+### Testing UTF-8 Support
+When testing a plugin's REST API:
+```bash
+# Test with German characters
+curl -X POST -H "Content-Type: application/json; charset=utf-8" \
+  --data-binary @- "$URL" << 'EOF'
+{"title": "Über uns", "content": "Größe: 50m²"}
+EOF
+```

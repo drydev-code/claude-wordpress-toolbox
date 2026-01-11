@@ -376,3 +376,37 @@ When optimizing SEO, provide:
 | H1 | N/A | 70 chars |
 | Alt Text | N/A | 125 chars |
 | Focus Keyword | 1-3 words | N/A |
+
+---
+
+## Character Encoding (UTF-8)
+
+**CRITICAL**: Always preserve UTF-8 encoding when working with content containing special characters (German umlauts: ä, ö, ü, ß, accented characters: é, è, ñ, etc.).
+
+### Rules
+1. **Never escape or encode special characters** - Write `Über uns` not `&Uuml;ber uns`
+2. **Preserve existing characters** - When reading JSON/HTML files, keep all special characters exactly as they appear
+3. **SEO titles and descriptions support UTF-8** - All SEO plugins handle Unicode correctly
+4. **URL slugs should be ASCII** - Convert umlauts in slugs: ä→ae, ö→oe, ü→ue, ß→ss
+
+### JSON File Examples
+```json
+{
+  "rank_math_title": "Über uns - Unsere Geschichte | Firmenname",
+  "rank_math_description": "Erfahren Sie mehr über unser Unternehmen in München. Qualität und Zuverlässigkeit seit über 20 Jahren.",
+  "rank_math_focus_keyword": "Über uns München"
+}
+```
+
+### URL Slug Conversion
+| German | Slug |
+|--------|------|
+| Über uns | ueber-uns |
+| Größentabelle | groessentabelle |
+| Für Gäste | fuer-gaeste |
+| Qualitätsprodukte | qualitaetsprodukte |
+
+### When Editing SEO Files
+- Use the Edit tool which preserves UTF-8 encoding
+- Never use tools that might corrupt encoding
+- Validate JSON after editing to ensure it's still valid UTF-8

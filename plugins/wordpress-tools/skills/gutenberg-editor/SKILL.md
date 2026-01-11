@@ -191,6 +191,38 @@ When referencing media in blocks:
 - Reference `media-mapping.json` for URL-to-file mapping
 - Image IDs should match the export (or use 0 for new images)
 
+## Character Encoding (UTF-8)
+
+**CRITICAL**: Always preserve UTF-8 encoding when working with content containing special characters (German umlauts: ä, ö, ü, ß, accented characters: é, è, ñ, etc.).
+
+### Rules
+1. **Never escape or encode special characters** - Write `Über uns` not `&Uuml;ber uns` or `Über uns`
+2. **Preserve existing characters** - When reading files, keep all special characters exactly as they appear
+3. **Use UTF-8 file encoding** - All HTML files must be saved with UTF-8 encoding
+4. **Block content is UTF-8** - Gutenberg blocks support full Unicode, no escaping needed
+
+### Examples
+```html
+<!-- CORRECT: Direct UTF-8 characters -->
+<!-- wp:paragraph -->
+<p>Willkommen auf unserer Webseite für Gäste aus München!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Über uns</h2>
+<!-- /wp:heading -->
+
+<!-- WRONG: Escaped or encoded characters -->
+<!-- wp:paragraph -->
+<p>Willkommen auf unserer Webseite f&uuml;r G&auml;ste aus M&uuml;nchen!</p>
+<!-- /wp:paragraph -->
+```
+
+### When Editing Files
+- Use the Edit tool which preserves UTF-8 encoding
+- Never use sed or other tools that might corrupt encoding
+- If characters appear corrupted after editing, the source encoding was wrong
+
 ## Best Practices
 
 1. **Preserve existing structure** when making targeted edits

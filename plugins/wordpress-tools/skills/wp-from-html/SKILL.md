@@ -13,6 +13,63 @@ Arguments:
 
 ---
 
+## Character Encoding (UTF-8)
+
+**CRITICAL**: This conversion process fully supports UTF-8 special characters (German umlauts: ä, ö, ü, ß, accented characters: é, è, ñ, etc.). All sub-agents MUST preserve character encoding.
+
+### Global Encoding Rules
+
+1. **Source HTML files** - Must be UTF-8 encoded with proper `<meta charset="UTF-8">`
+2. **Configuration files** - `wp-site.yml` supports UTF-8 for site name, titles, etc.
+3. **Generated content** - All Gutenberg blocks preserve original characters
+4. **Theme files** - PHP/CSS/JS files are UTF-8 encoded
+5. **WordPress database** - Default UTF-8 charset is used
+
+### Examples in Configuration
+```yaml
+site:
+  name: "Möbel & Küchen München"
+  tagline: "Qualität für Ihr Zuhause"
+pages:
+  - file: "ueber-uns.html"
+    slug: "ueber-uns"
+    title: "Über uns"
+  - file: "groessentabelle.html"
+    slug: "groessentabelle"
+    title: "Größentabelle"
+```
+
+### Sub-Agent Instructions
+All sub-agents spawned during conversion MUST:
+- Read files with UTF-8 encoding preserved
+- Write files with UTF-8 encoding (no BOM)
+- Never escape or HTML-encode special characters in content
+- Use `--data-binary` with curl for REST API calls with special characters
+
+### WP-CLI Encoding
+When using WP-CLI commands with special characters:
+```bash
+# WRONG - may corrupt umlauts
+docker exec wp-cli wp post create --post_title="Über uns"
+
+# CORRECT - use here-doc or temp file
+docker exec wp-cli wp post create --post_title="$(cat << 'EOF'
+Über uns
+EOF
+)"
+```
+
+### Verification After Conversion
+```bash
+# Check for German umlauts in converted pages
+docker exec wp-cli wp post list --post_type=page --fields=ID,post_title
+
+# Verify content encoding
+docker exec wp-cli wp post get PAGE_ID --field=post_content | grep -o "[äöüÄÖÜß]"
+```
+
+---
+
 ## Role: WP Conversion Orchestrator
 
 You are a lightweight orchestrator that:
