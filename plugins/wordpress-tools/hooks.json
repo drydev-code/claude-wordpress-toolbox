@@ -1,14 +1,7 @@
-{
-  "hooks": [
-    {
-      "event": "post-install",
-      "command": "cd ${CLAUDE_PLUGIN_ROOT}/skills/wp-export && npm install --silent",
-      "description": "Install wp-export dependencies"
-    },
-    {
-      "event": "post-install",
-      "command": "cd ${CLAUDE_PLUGIN_ROOT}/skills/wp-import && npm install --silent",
-      "description": "Install wp-import dependencies"
-    }
-  ]
-}
+[
+  {
+    "event": "post-install",
+    "command": "cd ${CLAUDE_PLUGIN_ROOT}/scripts && npm install --silent",
+    "description": "Install script dependencies"
+  }
+]
