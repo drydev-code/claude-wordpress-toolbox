@@ -6,6 +6,12 @@ Import WordPress content from exported files to a WordPress site.
 
 The script `wp-import.js` is bundled in this skill folder.
 
+## Setup (first time only)
+
+```bash
+npm install
+```
+
 ## Quick Start
 
 ```bash

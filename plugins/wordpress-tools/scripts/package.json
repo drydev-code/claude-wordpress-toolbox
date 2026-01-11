@@ -1,0 +1,20 @@
+{
+  "name": "wp-content-sync",
+  "version": "1.0.0",
+  "description": "WordPress content export/import via REST API",
+  "type": "module",
+  "scripts": {
+    "export": "node wp-export.js",
+    "import": "node wp-import.js"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

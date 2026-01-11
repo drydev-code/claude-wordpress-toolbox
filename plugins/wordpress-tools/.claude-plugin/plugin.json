@@ -8,5 +8,6 @@
   "repository": "https://github.com/drydev-code/claude-wordpress-exporter",
   "license": "MIT",
   "keywords": ["wordpress", "gutenberg", "seo", "rank-math", "yoast", "content-management"],
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "hooks": "../hooks.json"
 }

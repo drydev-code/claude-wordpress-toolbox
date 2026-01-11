@@ -6,6 +6,12 @@ Export WordPress content from a WordPress site to local files for editing.
 
 The script `wp-export.js` is bundled in this skill folder.
 
+## Setup (first time only)
+
+```bash
+npm install
+```
+
 ## Quick Start
 
 ```bash
