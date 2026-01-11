@@ -7,7 +7,7 @@ A Claude Code skills marketplace for WordPress content management, SEO optimizat
 Add this marketplace to Claude Code:
 
 ```bash
-/plugin marketplace add drydev-code/claude-wordpress-skills
+/plugin marketplace add drydev-code/claude-wordpress-exporter
 ```
 
 Then install the plugin:

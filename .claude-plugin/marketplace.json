@@ -1,5 +1,5 @@
 {
-  "name": "claude-wordpress-skills",
+  "name": "claude-wordpress-exporter",
   "owner": {
     "name": "drydev-code"
   },
@@ -17,7 +17,7 @@
       "author": {
         "name": "drydev-code"
       },
-      "repository": "https://github.com/drydev-code/claude-wordpress-skills",
+      "repository": "https://github.com/drydev-code/claude-wordpress-exporter",
       "license": "MIT",
       "keywords": ["wordpress", "gutenberg", "seo", "rank-math", "yoast", "content-management"],
       "category": "productivity"
