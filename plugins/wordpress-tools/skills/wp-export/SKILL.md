@@ -2,20 +2,20 @@
 
 Export WordPress content from a WordPress site to local files for editing.
 
-## Script Reference
+## Script Location
 
-The script `wp-export.js` is bundled in this skill folder.
+Scripts are in the shared `../../scripts/` folder relative to this skill.
 
 ## Setup (first time only)
 
 ```bash
-npm install
+cd ../../scripts && npm install
 ```
 
 ## Quick Start
 
 ```bash
-node wp-export.js
+cd ../../scripts && node wp-export.js
 ```
 
 ## CLI Options
@@ -36,16 +36,16 @@ node wp-export.js
 
 ```bash
 # Export all published content
-node wp-export.js
+cd ../../scripts && node wp-export.js
 
 # Export only pages
-node wp-export.js --type pages
+cd ../../scripts && node wp-export.js --type pages
 
 # Export including drafts
-node wp-export.js --status all
+cd ../../scripts && node wp-export.js --status all
 
 # Export without media (faster)
-node wp-export.js --no-media
+cd ../../scripts && node wp-export.js --no-media
 ```
 
 ## Export Structure
@@ -104,9 +104,9 @@ cp export/_wordpress-plugin/expose-all-meta.php \
 
 This adds the `all_meta` field to REST API responses with full post meta.
 
-## Bundled Scripts
+## Script Files
 
-All scripts are bundled in this skills folder:
+Scripts are located in `../../scripts/`:
 - `wp-export.js` - Main export script
 - `lib/api-client.js` - WordPress REST API client
 - `lib/file-utils.js` - File operations

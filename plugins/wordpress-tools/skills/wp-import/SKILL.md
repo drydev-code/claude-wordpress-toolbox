@@ -2,21 +2,21 @@
 
 Import WordPress content from exported files to a WordPress site.
 
-## Script Reference
+## Script Location
 
-The script `wp-import.js` is bundled in this skill folder.
+Scripts are in the shared `../../scripts/` folder relative to this skill.
 
 ## Setup (first time only)
 
 ```bash
-npm install
+cd ../../scripts && npm install
 ```
 
 ## Quick Start
 
 ```bash
-node wp-import.js --dry-run  # Preview first
-node wp-import.js            # Execute import
+cd ../../scripts && node wp-import.js --dry-run  # Preview first
+cd ../../scripts && node wp-import.js            # Execute import
 ```
 
 ## CLI Options
@@ -46,19 +46,19 @@ node wp-import.js            # Execute import
 
 ```bash
 # Always dry-run first!
-node wp-import.js --dry-run
+cd ../../scripts && node wp-import.js --dry-run
 
 # Import all content
-node wp-import.js
+cd ../../scripts && node wp-import.js
 
 # Only update existing pages
-node wp-import.js --type pages --mode update
+cd ../../scripts && node wp-import.js --type pages --mode update
 
 # Only create new posts
-node wp-import.js --type posts --mode create
+cd ../../scripts && node wp-import.js --type posts --mode create
 
 # Import to different site
-node wp-import.js --url https://staging.example.com
+cd ../../scripts && node wp-import.js --url https://staging.example.com
 ```
 
 ## Import Process
@@ -107,9 +107,9 @@ cp export/_wordpress-plugin/expose-all-meta.php \
 
 This enables writing to `all_meta` field via REST API.
 
-## Bundled Scripts
+## Script Files
 
-All scripts are bundled in this skills folder:
+Scripts are located in `../../scripts/`:
 - `wp-import.js` - Main import script
 - `lib/api-client.js` - WordPress REST API client
 - `lib/file-utils.js` - File operations
