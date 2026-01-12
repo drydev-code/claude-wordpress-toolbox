@@ -137,7 +137,7 @@ export class WPApiClient {
    * @returns {Promise<Object|null>} Post data or null
    */
   async getPostBySlug(slug) {
-    const { data } = await this.request(`/posts?slug=${encodeURIComponent(slug)}`);
+    const { data } = await this.request(`/posts?slug=${encodeURIComponent(slug)}&status=publish,draft,pending,private`);
     return data.length > 0 ? data[0] : null;
   }
 
@@ -149,7 +149,7 @@ export class WPApiClient {
   async createPost(postData) {
     const { data } = await this.request('/posts', {
       method: 'POST',
-      body: JSON.stringify(postData),
+      body: JSON.stringify({ status: 'private', ...postData }),
     });
     return data;
   }
@@ -212,7 +212,7 @@ export class WPApiClient {
    * @returns {Promise<Object|null>} Page data or null
    */
   async getPageBySlug(slug) {
-    const { data } = await this.request(`/pages?slug=${encodeURIComponent(slug)}`);
+    const { data } = await this.request(`/pages?slug=${encodeURIComponent(slug)}&status=publish,draft,pending,private`);
     return data.length > 0 ? data[0] : null;
   }
 
@@ -224,7 +224,7 @@ export class WPApiClient {
   async createPage(pageData) {
     const { data } = await this.request('/pages', {
       method: 'POST',
-      body: JSON.stringify(pageData),
+      body: JSON.stringify({ status: 'private', ...pageData }),
     });
     return data;
   }
